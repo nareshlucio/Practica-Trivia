@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="utf-8">
+	<title>Trivia Virtualizacion</title>
+	<link href="../assets/img/brand/favicon.png" rel="icon" type="image/png">
+  	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  
+  	<link href="../assets/vendor/nucleo/css/nucleo.css" rel="stylesheet">
+  	<link href="../assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    	<link type="text/css" href="../assets/css/argon.css?v=1.1.0" rel="stylesheet">
+</head>
+<body>
+  <main style="" id="ints">
+    <section class="section section-shaped section-lg bg-warning">
+      <div class="container pt-lg-md">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="card bg-secondary shadow border-0">
+              <div class="card-header bg-white pb-5">
+                <center><h1>Trivia de Virtualizacion</h1></center>
+              </div>
+              <div class="card-body px-lg-5 py-lg-5">
+              
+                <form action="" method="" name="">
+                  <div class="form-group mb-3">
+                    <h6 id="Pregunta"></h6>
+                    <div class="input-group input-group-alternative" id="respuesta">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                      </div>
+                      
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <button type="button" class="btn btn-primary my-4" onclick="comprobar()">Iniciar</button>
+                  </div>
+                </form>
+              </div>
+              <div class="card-footer" id="ops">
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- Core -->
+  <script src="../assets/vendor/jquery/jquery.min.js"></script>
+  <script src="../assets/vendor/popper/popper.min.js"></script>
+  <script src="../assets/vendor/bootstrap/bootstrap.min.js"></script>
+  <script src="../assets/vendor/headroom/headroom.min.js"></script>
+  <!-- Argon JS -->
+  <script src="../assets/js/argon.js?v=1.1.0"></script>
+  <script type="text/javascript">
+    var preguntas = [
+    "Su función es separar los recursos físicos de los entornos virtuales, menciona cuales son:",
+    "¿Cómo se le llama a la acción cuando los usuarios interactúan con los cálculos y los ejecutan desde el entorno físico?",
+    "Selecciona los 5 tipos de Virtualizacion (Vz = virtualización)",
+    "Menciona la diferencia entre la Virtualización de los Escritorios y la Virtualización del Sistema Operativo","Menciona mínimo 2 ventajas de la virtualización del S.O",
+    "Menciona una herramienda de software que permita monitorear sistemas para determinar el rendimiento y uso de recursos",
+    "Esta herramienta permite la migración física a virtual, sin embargo, solo admiten un software VMware, menciona cuál es",
+    "Citrix es otra herramienta de virtualización. Menciona en qué está basado y 3 carácterísticas",
+    "En qué está basada la arquitectura de Dalvik?",
+    "En qué tipo de lenguaje está basado una máquina virtual?"
+    ];
+    var respuestas = [
+    ["Hipervisores","Virtualización de los Datos","Virtualizacion", "Maquina Virtual"],
+    ["Maquina Virtual","Virtualización de los Datos","Virtualizacion", "Hipervisores"],
+    ["Vz de los Datos,Vz de los Escritorios,Vz de Servidores,Vz de S.O,Vz de Red","Vz de Informacion,Vz de los Escritorios,Vz de Servidores,Vz de Sistemas,Vz de Red","Vz de los Datos,Vz de los Recursos,Vz de Servidores,Vz de Operaciones,Vz de Informacion","Vz de Informacion,Vz de los Recursos,Vz de Servidores,Vz de S.O,Vz de Servicios"],
+    ["Permite implementar entornos simulados de escritorio","permite implementar varios S.O en una sola máquina","Solo puedes Implementar un S.O","Permite implementar Multiples entornos de escritorio"],
+    ["Reduce costos, Aumenta seguridad", "Reduce Costos, Multiples S.O", "De un Solo uso, Aumento de Seguridad","Multiples S.O, Aumenta seguridad"],
+    ["Nagios, Zenoss o Zabbix","Nagios, Zenoss, Virtual Box", "Sublime,Brakets,Atom", "AdminResurces,Procedux,FastAdmin"],
+    ["Vcenter Converter","Nagios","Zabbix","Zenoss"],
+    ["Open Source, Virtualización de hardware, migración caliente, informes de rendimiento", "Licencia, Virtualizacion de Hardware, Administracion de Procesos, Admin de Maquinas","Open Source. Virtualización de hardware, Migración Caliente, Informes de Rendimiento","Licencia, Virtualización de hardware, migración caliente, informes de rendimiento"],
+    ["Registros", "Monitorizacion de Rendimiento","Administrador de Recursos", "CRUD"],
+    ["Lenguaje de Alto Nivel", "Lenguaje de Binario", "Lenguaje Maquina","Lenguaje de Bajo Nivel"]
+    ];
+    var ind_corr;
+    var intentos = 0;
+    Jugar();
+    function Jugar(){
+    var ind_Aletorio = Math.floor(Math.random()*preguntas.length);
+    var resp_pos = respuestas[ind_Aletorio];
+    var pos =[0,1,2,3,4,5,6,7,8,9];
+    var res_reord = [];
+    
+    var intros = false;
+    for(i in resp_pos){
+      var pos_aletorio = pos[Math.floor(Math.random()*pos.length)];
+      if(pos_aletorio == 0 && intros == false){
+        ind_corr = i;
+        intros = true;
+      }
+
+      res_reord[i] = resp_pos[pos[pos_aletorio]];
+      pos.splice(pos_aletorio, 1)
+    }
+
+    var txt_resp = "";
+    for(i in res_reord){
+      txt_resp += "<div class='custom-control custom-radio mb-3'><input class='custom-control-input' type='radio' value=r"+i+" name='resp' id='resp"+i+"'><label class=custom-control-label for='resp"+i+"'>"+resp_pos[i]+"</label></div><br>";
+    }
+    document.getElementById("respuesta").innerHTML = txt_resp;
+    document.getElementById("Pregunta").innerHTML = preguntas[ind_Aletorio];
+  }
+    function comprobar(){
+      var respuestas = $("input[type=radio]:checked").val();
+      if(intentos>=3){
+        document.getElementById("ints").innerHTML = "<meta http-equiv='Refresh' content='0.5;URL=../index.html'>";
+      }
+      if(respuestas == ind_corr){
+        alert("Genial!!!, Respuesta Correcta");
+      }else{
+        alert("Respuesta Incorrecta ");
+        intentos++;
+        document.getElementById("ops").innerHTML = "<h6>Intentos: "+intentos+"</h6>";
+      }
+      Jugar();
+    }
+  </script>
+</body>
+</html>
